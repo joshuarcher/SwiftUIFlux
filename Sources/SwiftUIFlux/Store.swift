@@ -13,7 +13,7 @@ import Combine
 final public class Store<State: FluxState>: ObservableObject {
     @Published public var state: State
 
-    private var dispatchFunction: DispatchFunction!
+    private var dispatchFunction: DispatchFunction?
     private let reducer: Reducer<State>
     
     public init(reducer: @escaping Reducer<State>,
@@ -38,7 +38,7 @@ final public class Store<State: FluxState>: ObservableObject {
 
     public func dispatch(action: Action) {
         DispatchQueue.global(qos: .userInteractive).async {
-            self.dispatchFunction(action)
+            self.dispatchFunction?(action)
         }
     }
     
