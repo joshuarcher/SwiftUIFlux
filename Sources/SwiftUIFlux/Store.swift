@@ -37,12 +37,13 @@ final public class Store<State: FluxState>: ObservableObject {
     }
 
     public func dispatch(action: Action) {
-        DispatchQueue.main.async {
-            self.dispatchFunction(action)
-        }
+        self.dispatchFunction(action)
     }
     
     private func _dispatch(action: Action) {
-        state = reducer(state, action)
+        let newState = reducer(state, action)
+        DispatchQueue.main.async {
+            state = newState
+        }
     }
 }
