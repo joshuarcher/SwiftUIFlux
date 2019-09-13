@@ -40,16 +40,16 @@ final public class Store<State: FluxState>: ObservableObject {
 //            }
         }
 //        middleware.reduc
-        _ = middleware
-            .reversed()
-            .reduce(
-                { [unowned self] action in
-                    self._dispatch(action: action) },
-                { dispatchFunction, middleware in
-                    let dispatch: (Action) -> Void = { [weak self] in self?.dispatch(action: $0) }
-                    let getState = { [weak self] in self?.state }
-                    return middleware(dispatch, getState)(dispatchFunction)
-            })
+//        _ = middleware
+//            .reversed()
+//            .reduce(
+//                { [unowned self] action in
+//                    self._dispatch(action: action) },
+//                { dispatchFunction, middleware in
+//                    let dispatch: (Action) -> Void = { [weak self] in self?.dispatch(action: $0) }
+//                    let getState = { [weak self] in self?.state }
+//                    return middleware(dispatch, getState)(dispatchFunction)
+//            })
     }
 
     public func dispatch(action: Action) {
