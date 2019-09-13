@@ -15,19 +15,17 @@ final public class Store<State: FluxState>: ObservableObject {
 
     private var dispatchFunction: DispatchFunction?
     private let reducer: Reducer<State>
-    private var middleware: [Middleware<State>]
     
     public init(reducer: @escaping Reducer<State>,
                 middleware: [Middleware<State>] = [],
                 state: State) {
         self.reducer = reducer
         self.state = state
-        self.middleware = middleware
         
-//        var middleware = middleware
-        self.middleware.append(asyncActionsMiddleware)
+        var midWare = middleware
+        midWare.append(asyncActionsMiddleware)
 //        middleware.
-        self.dispatchFunction = middleware
+        self.dispatchFunction = midWare
             .reversed()
             .reduce(
                 { [weak self] action in
